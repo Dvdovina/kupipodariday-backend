@@ -38,7 +38,7 @@ export class Wishlist {
 	name: string;
 
 	@Column({ default: '', nullable: true })
-	@Length(2, 1500)
+	@Length(1, 1500)
 	description: string;
 
 	@Column({type: 'varchar'})
