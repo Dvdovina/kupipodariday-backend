@@ -1,4 +1,4 @@
-import { IsString, IsUrl, Length, IsNotEmpty, Min, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsUrl, Length, Min, IsNumber, IsOptional } from 'class-validator';
 
 export class UpdateWishDto {
     @IsString()

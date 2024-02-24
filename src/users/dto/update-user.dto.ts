@@ -1,4 +1,4 @@
-import { IsEmail, IsString, IsUrl, Length, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsEmail, IsString, IsUrl, Length, IsOptional } from 'class-validator';
 
 export class UpdateUserDto {
     @IsString()
