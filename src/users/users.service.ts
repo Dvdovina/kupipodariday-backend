@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, FindManyOptions } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { FindUserDto } from './dto/find-user.dto';
 import { hash } from 'bcrypt';
 
 @Injectable()
@@ -43,6 +44,16 @@ export class UsersService {
         }
         return user;
     }
+
+    async findMany({ query }: FindUserDto): Promise<User[]> {
+        const user = await this.usersRepository.find({
+          where: [{ username: query }, { email: query }],
+        });
+        if (!user) {
+          throw new NotFoundException('Пользователь не найден');
+        }
+        return user;
+      }
 
     async updateOne(id: number, updateUserDto: UpdateUserDto) {
         if (updateUserDto.password) {
