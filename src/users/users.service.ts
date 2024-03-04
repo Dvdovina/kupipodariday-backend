@@ -47,13 +47,35 @@ export class UsersService {
 
     async findMany({ query }: FindUserDto): Promise<User[]> {
         const user = await this.usersRepository.find({
-          where: [{ username: query }, { email: query }],
+            where: [{ username: query }, { email: query }],
         });
         if (!user) {
-          throw new NotFoundException('Пользователь не найден');
+            throw new NotFoundException('Пользователь не найден');
         }
         return user;
-      }
+    }
+
+    async findUserWishes(id: number) {
+        const user = await this.usersRepository.findOne({
+            where: { id },
+            relations: ['wishes'],
+        });
+        if (!user) {
+            throw new NotFoundException('Пользователь не найден');
+        }
+        return user.wishes;
+    }
+
+    async findWishesByUsername(username: string) {
+        const user = await this.usersRepository.findOne({
+            where: { username },
+            relations: ['wishes'],
+        });
+        if (!user) {
+            throw new NotFoundException('Пользователь не найден');
+        }
+        return user.wishes;
+    }
 
     async updateOne(id: number, updateUserDto: UpdateUserDto) {
         if (updateUserDto.password) {
