@@ -8,10 +8,12 @@ import { WishlistsModule } from './wishlists/wishlists.module';
 import { OffersModule } from './offers/offers.module';
 import { WishesModule } from './wishes/wishes.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
+    ConfigModule.forRoot(),
     UsersModule,
     WishlistsModule,
     OffersModule,
