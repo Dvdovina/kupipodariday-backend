@@ -15,42 +15,36 @@ import { Wish } from 'src/wishes/entities/wish.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FindUserDto } from './dto/find-user.dto';
 
-
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
 
-    @UseGuards(JwtAuthGuard)
     @Get('me')
     async findMe(@Req() req): Promise<User> {
         return await this.usersService.findById(req.user.id);
     }
 
-    @UseGuards(JwtAuthGuard)
     @Post('find')
     async findMany(@Body() findUserDto: FindUserDto): Promise<User[]> {
         return await this.usersService.findMany(findUserDto);
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get(':username')
     findOne(@Param('username') username: string) {
         return this.usersService.findByUsername(username);
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get('me/wishes')
     async findUserWishes(@Req() req): Promise<Wish[]> {
         return await this.usersService.findUserWishes(req.user.id);
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get(':username/wishes')
     async findWishesByUsername(@Param('username') username: string) {
         return this.usersService.findWishesByUsername(username);
     }
 
-    @UseGuards(JwtAuthGuard)
     @Patch('me')
     async updateOne(@Req() req, @Body() updateUserDto: UpdateUserDto) {
         return await this.usersService.updateOne(req.user.id, updateUserDto);
