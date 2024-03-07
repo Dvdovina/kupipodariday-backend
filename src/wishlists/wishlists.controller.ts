@@ -15,7 +15,7 @@ import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { UpdateWishlistDto } from './dto/update-wishlist.dto';
 
 @UseGuards(JwtAuthGuard)
-@Controller('wishlists')
+@Controller('wishlistlists')
 export class WishlistsController {
 
     constructor(private readonly wishlistsService: WishlistsService) { }
@@ -50,7 +50,7 @@ export class WishlistsController {
     }
 
     @Delete(':id')
-    removeOne(@Param('id') id: number, @Req() req: any) {
-        return this.wishlistsService.removeOne(id, req.user.id);
+    async remove(@Req() req, @Param('id') id: string) {
+      return await this.wishlistsService.removeOne(req.user.id, +id);
     }
 }
