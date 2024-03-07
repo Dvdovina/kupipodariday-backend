@@ -11,7 +11,7 @@ import {
 import { User } from 'src/users/entities/user.entity';
 import { Offer } from 'src/offers/entities/offer.entity';
 import { Wishlist } from 'src/wishlists/entities/wishlist.entity';
-import { IsString, IsUrl, Length, IsNotEmpty } from 'class-validator';
+import { IsString, IsUrl, Length, IsNotEmpty, IsNumber } from 'class-validator';
 
 
 @Entity()
@@ -53,7 +53,8 @@ export class Wish {
 	@Column({ type: 'numeric', scale: 2 })
 	price: number;
 
-	@Column({ type: 'numeric', scale: 2, default: 0 })
+	@Column({ type: 'float', default: 0 })
+	@IsNumber({ maxDecimalPlaces: 2 })
 	raised: number;
 
 	@Column({ type: 'varchar' })
