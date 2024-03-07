@@ -15,9 +15,8 @@ export class OffersService {
         private dataSource: DataSource,
     ) { }
 
-    async create(createOfferDto: CreateOfferDto, user: User) {
+    async create(createOfferDto: CreateOfferDto, userId: number) {
         const { amount, itemId } = createOfferDto;
-        const userId = user.id
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
