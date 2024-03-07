@@ -8,8 +8,8 @@ import { compare } from 'bcrypt';
 @Injectable()
 export class AuthService {
     constructor(
-        private usersService: UsersService,
         private jwtService: JwtService,
+        private usersService: UsersService,
     ) { }
 
 
@@ -22,7 +22,9 @@ export class AuthService {
     }
 
     async validateUserInfo(signinDto: SigninDto) {
-        const user = await this.usersService.findByUsername(signinDto.username);
+        const user = await this.usersService.findOne(
+            signinDto.username,
+        );
         if (!user || !(await compare(signinDto.password, user.password))) {
             throw new UnauthorizedException('Неверный пароль или имя пользователя');
         }
