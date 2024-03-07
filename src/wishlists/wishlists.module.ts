@@ -15,6 +15,6 @@ import { Wish } from 'src/wishes/entities/wish.entity';
   ],
   controllers: [WishlistsController],
   providers: [WishlistsService],
-  exports: [WishlistsService]
+  exports: [WishlistsService],
 })
-export class WishlistsModule { }
+export class WishlistsModule {}

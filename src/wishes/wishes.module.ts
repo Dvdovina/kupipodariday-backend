@@ -6,11 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Wish]), UsersModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Wish]), UsersModule],
   controllers: [WishesController],
   providers: [WishesService],
-  exports: [WishesService]
+  exports: [WishesService],
 })
-export class WishesModule { }
+export class WishesModule {}

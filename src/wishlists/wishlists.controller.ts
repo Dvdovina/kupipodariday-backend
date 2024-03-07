@@ -1,13 +1,13 @@
 import {
-    Controller,
-    Get,
-    Body,
-    Patch,
-    UseGuards,
-    Req,
-    Post,
-    Param,
-    Delete
+  Controller,
+  Get,
+  Body,
+  Patch,
+  UseGuards,
+  Req,
+  Post,
+  Param,
+  Delete,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { WishlistsService } from './wishlists.service';
@@ -17,40 +17,38 @@ import { UpdateWishlistDto } from './dto/update-wishlist.dto';
 @UseGuards(JwtAuthGuard)
 @Controller('wishlistlists')
 export class WishlistsController {
+  constructor(private readonly wishlistsService: WishlistsService) {}
 
-    constructor(private readonly wishlistsService: WishlistsService) { }
-
-    @Post()
-    async create(@Req() req, @Body() createWishlistDto: CreateWishlistDto) {
-        try {
-            return await this.wishlistsService.create(req.user, createWishlistDto);
-        } catch (err) {
-            console.log(err);
-        }
+  @Post()
+  async create(@Req() req, @Body() createWishlistDto: CreateWishlistDto) {
+    try {
+      return await this.wishlistsService.create(req.user, createWishlistDto);
+    } catch (err) {
+      console.log(err);
     }
+  }
 
-    @Get()
-    async findAll() {
-        return this.wishlistsService.findAll();
-    }
+  @Get()
+  async findAll() {
+    return this.wishlistsService.findAll();
+  }
 
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.wishlistsService.findOne(id);
+  }
 
-    @Get(':id')
-    findOne(@Param('id') id: number) {
-        return this.wishlistsService.findOne(id);
-    }
+  @Patch(':id')
+  updateOne(
+    @Param('id') id: number,
+    @Body() updateWishlistDto: UpdateWishlistDto,
+    @Req() req: any,
+  ) {
+    return this.wishlistsService.updateOne(id, updateWishlistDto, req.user.id);
+  }
 
-    @Patch(':id')
-    updateOne(
-        @Param('id') id: number,
-        @Body() updateWishlistDto: UpdateWishlistDto,
-        @Req() req: any,
-    ) {
-        return this.wishlistsService.updateOne(id, updateWishlistDto, req.user.id);
-    }
-
-    @Delete(':id')
-    async remove(@Req() req, @Param('id') id: string) {
-      return await this.wishlistsService.removeOne(req.user.id, +id);
-    }
+  @Delete(':id')
+  async remove(@Req() req, @Param('id') id: string) {
+    return await this.wishlistsService.removeOne(req.user.id, +id);
+  }
 }

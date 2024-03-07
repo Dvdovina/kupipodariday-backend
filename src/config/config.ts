@@ -5,12 +5,12 @@ import { User } from 'src/users/entities/user.entity';
 import { Offer } from 'src/offers/entities/offer.entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'student',
-    password: 'student',
-    database: 'kupipodariday',
-    entities: [Wish, Wishlist, User, Offer],
-    synchronize: true,
-  }
+  type: 'postgres',
+  host: 'localhost',
+  port: 5432,
+  username: 'student',
+  password: 'student',
+  database: 'kupipodariday',
+  entities: [Wish, Wishlist, User, Offer],
+  synchronize: true,
+};
